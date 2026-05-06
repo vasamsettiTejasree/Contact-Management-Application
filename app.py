@@ -49,10 +49,13 @@ button[kind="secondary"]:hover { background-color: #b91c1c !important; }
 def check_inputs(first_name, email, phone):
     if not first_name or not email or not phone:
         return False, "Please fill in all required fields"
-    if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
-        return False, "That email doesn't look right"
+    if not re.match(r"^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", email):
+        return False, "Enter a valid email address"
+    if ".." in email:
+        return False, "Email should not contain consecutive dots"
     if not phone.isdigit() or len(phone) < 10:
         return False, "Phone number should be at least 10 digits"
+
     return True, ""
 
 
